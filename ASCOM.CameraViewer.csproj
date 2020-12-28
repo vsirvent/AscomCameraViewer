@@ -183,6 +183,7 @@
     <Compile Include="IVideoWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="stackImage.cs" />
     <Compile Include="VideoWrapper.cs" />
     <EmbeddedResource Include="frmCameraInfo.resx">
       <DependentUpon>frmCameraInfo.cs</DependentUpon>

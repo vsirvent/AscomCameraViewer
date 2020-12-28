@@ -44,8 +44,9 @@ namespace Client
 		private int imageHeight;
         private float nwhite = 255.0f;
         private float nblack = 0.0f;
-	 
-		public frmMain()
+        private int sensorInput = 1;
+
+        public frmMain()
 		{
 			InitializeComponent();
 
@@ -57,6 +58,7 @@ namespace Client
 			ThreadPool.QueueUserWorkItem(new WaitCallback(DisplayVideoFrames));
 
             toolStripSizeLabel.Text = "Size: N/A";
+            sensorType.SelectedIndex = 1;
 
         }
 
@@ -361,30 +363,52 @@ namespace Client
                             {
                                 for (int x = 0; x < imageWidth - 1; x += 2)
                                 {
-                                    float r, g0, g1, b;
-                                   
-                                    /*
-                                    int b00 = (((int)bayer[x, y]) & 0xff);
-                                    int b01 = (((int)bayer[x, y]) >> 8 & 0xff);
-                                    int b10 = (((int)bayer[x, y+1]) & 0xff);
-                                    int b11 = (((int)bayer[x, y+1]) >> 8 & 0xff);
-                                    */
-                                    int b01 = (((int)bayer[x, y]));
-                                    int b00 = (((int)bayer[x + 1, y]));
-                                    int b11 = (((int)bayer[x, y + 1]));
-                                    int b10 = (((int)bayer[x + 1, y + 1]));
+                                    float r = 0.0f, g0 = 0.0f, g1 = 0.0f, b = 0.0f;
+                                    int b01 = 0;
+                                    int b00 = 0;
+                                    int b11 = 0;
+                                    int b10 = 0;
+
+                                    switch (sensorInput)
+                                    {
+                                        case 0:
+                                        b00 = (((int)bayer[x, y]));
+                                        b01 = (((int)bayer[x + 1, y]));
+                                        b10 = (((int)bayer[x, y + 1]));
+                                        b11 = (((int)bayer[x + 1, y + 1]));
+                                        r = b00;
+                                        g0 = b01;
+                                        g1 = b10;
+                                        b = b11;
+                                        break;
+                                        case 1:
+                                        b01 = (((int)bayer[x, y]));
+                                        b00 = (((int)bayer[x + 1, y]));
+                                        b11 = (((int)bayer[x, y + 1]));
+                                        b10 = (((int)bayer[x + 1, y + 1]));
+                                        r = b00;
+                                        g0 = b01;
+                                        g1 = b10;
+                                        b = b11;
+                                        break;
+                                        case 2:
+                                        b01 = (((int)bayer[x, y]));
+                                        b00 = (((int)bayer[x + 1, y]));
+                                        b11 = (((int)bayer[x, y + 1]));
+                                        b10 = (((int)bayer[x + 1, y + 1]));
+                                        r = g0 = g1 = b = (b00 + b01 + b10 + b11)/4; 
+                                        break;
+                                    }
+
                                     int lum = (b00 + b01 + b10 + b11)*histogram.Width/(4*256);
-                                    var curr_val = 0;
+                                    int curr_val = 0;
                                     if (histogramVals.TryGetValue(lum, out curr_val))
                                     {
                                         histogramVals.Remove(lum);
                                     }
                                     histogramVals.Add(lum, curr_val + 1);
 
-                                    r = b00;
-                                    g0 = b01;
-                                    g1 = b10;
-                                    b = b11;
+                                    
 
                                     if (nblack != 0 || nwhite != 0)
                                     {
@@ -423,6 +447,7 @@ namespace Client
                                     byte bg0 = (byte)g0;
                                     byte bg1 = (byte)g1;
                                     byte bb = (byte)b;
+
                                     data[(y * imageWidth * 3) + x * 3 + 0] = (bb);
                                     data[(y * imageWidth * 3) + x * 3 + 1] = (bg0);
                                     data[(y * imageWidth * 3) + x * 3 + 2] = (br);
@@ -643,6 +668,11 @@ namespace Client
         {
             lWL.Text = "WL: " + trackWL.Value;
             nwhite = trackWL.Value;
+        }
+
+        private void sensorType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sensorInput = sensorType.SelectedIndex;
         }
     }
 }

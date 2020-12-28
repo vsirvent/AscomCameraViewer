@@ -37,6 +37,10 @@
             this.pnlVideoFrames = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.pnlVideoControls = new System.Windows.Forms.Panel();
+            this.meanAmount = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this.trackWL = new System.Windows.Forms.TrackBar();
+            this.trackBL = new System.Windows.Forms.TrackBar();
             this.histogram = new System.Windows.Forms.PictureBox();
             this.lgain = new System.Windows.Forms.Label();
             this.trackGain = new System.Windows.Forms.TrackBar();
@@ -69,16 +73,17 @@
             this.labelGain = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
-            this.trackBL = new System.Windows.Forms.TrackBar();
-            this.trackWL = new System.Windows.Forms.TrackBar();
-            this.meanAmount = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.sensorType = new System.Windows.Forms.ComboBox();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
             this.pnlVideoFrames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.pnlVideoControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.histogram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackGain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expTime)).BeginInit();
@@ -93,9 +98,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -106,9 +108,9 @@
             this.toolStripSizeLabel,
             this.tssDisplayRate,
             this.toolStripProcessTime});
-            this.statusStrip.Location = new System.Drawing.Point(0, 506);
+            this.statusStrip.Location = new System.Drawing.Point(0, 667);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(812, 24);
+            this.statusStrip.Size = new System.Drawing.Size(1121, 24);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -168,7 +170,7 @@
             this.miSettings});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(812, 24);
+            this.msMain.Size = new System.Drawing.Size(1121, 24);
             this.msMain.TabIndex = 2;
             this.msMain.Text = "menuStrip1";
             // 
@@ -258,7 +260,7 @@
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.Location = new System.Drawing.Point(0, 24);
             this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(812, 482);
+            this.pnlClient.Size = new System.Drawing.Size(1121, 643);
             this.pnlClient.TabIndex = 4;
             // 
             // pnlVideoFrames
@@ -267,7 +269,7 @@
             this.pnlVideoFrames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlVideoFrames.Location = new System.Drawing.Point(0, 0);
             this.pnlVideoFrames.Name = "pnlVideoFrames";
-            this.pnlVideoFrames.Size = new System.Drawing.Size(586, 482);
+            this.pnlVideoFrames.Size = new System.Drawing.Size(895, 643);
             this.pnlVideoFrames.TabIndex = 2;
             // 
             // pictureBox
@@ -278,7 +280,7 @@
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(586, 484);
+            this.pictureBox.Size = new System.Drawing.Size(895, 645);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
@@ -289,6 +291,8 @@
             this.pnlVideoControls.AutoScroll = true;
             this.pnlVideoControls.BackColor = System.Drawing.SystemColors.Control;
             this.pnlVideoControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlVideoControls.Controls.Add(this.sensorType);
+            this.pnlVideoControls.Controls.Add(this.label3);
             this.pnlVideoControls.Controls.Add(this.meanAmount);
             this.pnlVideoControls.Controls.Add(this.label2);
             this.pnlVideoControls.Controls.Add(this.trackWL);
@@ -313,16 +317,70 @@
             this.pnlVideoControls.Controls.Add(this.cbFrameFetcher);
             this.pnlVideoControls.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlVideoControls.Enabled = false;
-            this.pnlVideoControls.Location = new System.Drawing.Point(586, 0);
+            this.pnlVideoControls.Location = new System.Drawing.Point(895, 0);
             this.pnlVideoControls.Name = "pnlVideoControls";
-            this.pnlVideoControls.Size = new System.Drawing.Size(226, 482);
+            this.pnlVideoControls.Size = new System.Drawing.Size(226, 643);
             this.pnlVideoControls.TabIndex = 1;
+            // 
+            // meanAmount
+            // 
+            this.meanAmount.Location = new System.Drawing.Point(128, 127);
+            this.meanAmount.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.meanAmount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.meanAmount.Name = "meanAmount";
+            this.meanAmount.Size = new System.Drawing.Size(58, 20);
+            this.meanAmount.TabIndex = 34;
+            this.meanAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 129);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Mean exposures:";
+            // 
+            // trackWL
+            // 
+            this.trackWL.AutoSize = false;
+            this.trackWL.Location = new System.Drawing.Point(15, 343);
+            this.trackWL.Maximum = 255;
+            this.trackWL.Name = "trackWL";
+            this.trackWL.Size = new System.Drawing.Size(190, 22);
+            this.trackWL.TabIndex = 32;
+            this.trackWL.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackWL.Value = 255;
+            this.trackWL.Scroll += new System.EventHandler(this.trackWL_Scroll);
+            // 
+            // trackBL
+            // 
+            this.trackBL.AutoSize = false;
+            this.trackBL.Location = new System.Drawing.Point(15, 293);
+            this.trackBL.Maximum = 255;
+            this.trackBL.Name = "trackBL";
+            this.trackBL.Size = new System.Drawing.Size(190, 22);
+            this.trackBL.TabIndex = 31;
+            this.trackBL.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBL.Scroll += new System.EventHandler(this.trackBL_Scroll);
             // 
             // histogram
             // 
             this.histogram.BackColor = System.Drawing.SystemColors.ControlDark;
             this.histogram.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.histogram.Location = new System.Drawing.Point(15, 106);
+            this.histogram.Location = new System.Drawing.Point(15, 152);
             this.histogram.Name = "histogram";
             this.histogram.Size = new System.Drawing.Size(187, 114);
             this.histogram.TabIndex = 30;
@@ -375,7 +433,7 @@
             // cbHistoEq
             // 
             this.cbHistoEq.AutoSize = true;
-            this.cbHistoEq.Location = new System.Drawing.Point(22, 402);
+            this.cbHistoEq.Location = new System.Drawing.Point(22, 448);
             this.cbHistoEq.Name = "cbHistoEq";
             this.cbHistoEq.Size = new System.Drawing.Size(92, 17);
             this.cbHistoEq.TabIndex = 26;
@@ -384,7 +442,7 @@
             // 
             // nGamma
             // 
-            this.nGamma.Location = new System.Drawing.Point(128, 369);
+            this.nGamma.Location = new System.Drawing.Point(128, 415);
             this.nGamma.Maximum = new decimal(new int[] {
             5,
             0,
@@ -402,7 +460,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 371);
+            this.label11.Location = new System.Drawing.Point(15, 417);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 13);
             this.label11.TabIndex = 22;
@@ -410,7 +468,7 @@
             // 
             // nContrast
             // 
-            this.nContrast.Location = new System.Drawing.Point(128, 323);
+            this.nContrast.Location = new System.Drawing.Point(128, 369);
             this.nContrast.Maximum = new decimal(new int[] {
             255,
             0,
@@ -427,7 +485,7 @@
             // 
             // nBright
             // 
-            this.nBright.Location = new System.Drawing.Point(128, 346);
+            this.nBright.Location = new System.Drawing.Point(128, 392);
             this.nBright.Maximum = new decimal(new int[] {
             50,
             0,
@@ -449,7 +507,7 @@
             this.groupBox3.Controls.Add(this.sharpKernel);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.bSharp);
-            this.groupBox3.Location = new System.Drawing.Point(15, 589);
+            this.groupBox3.Location = new System.Drawing.Point(15, 635);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(178, 91);
             this.groupBox3.TabIndex = 19;
@@ -509,7 +567,7 @@
             this.groupBox1.Controls.Add(this.noiseKernel);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cbNoiseActive);
-            this.groupBox1.Location = new System.Drawing.Point(15, 428);
+            this.groupBox1.Location = new System.Drawing.Point(15, 474);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 155);
             this.groupBox1.TabIndex = 11;
@@ -594,7 +652,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 348);
+            this.label6.Location = new System.Drawing.Point(15, 394);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 9;
@@ -603,7 +661,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 325);
+            this.label5.Location = new System.Drawing.Point(15, 371);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 13);
             this.label5.TabIndex = 8;
@@ -612,7 +670,7 @@
             // lWL
             // 
             this.lWL.AutoSize = true;
-            this.lWL.Location = new System.Drawing.Point(15, 281);
+            this.lWL.Location = new System.Drawing.Point(15, 327);
             this.lWL.Name = "lWL";
             this.lWL.Size = new System.Drawing.Size(48, 13);
             this.lWL.TabIndex = 7;
@@ -621,7 +679,7 @@
             // lBL
             // 
             this.lBL.AutoSize = true;
-            this.lBL.Location = new System.Drawing.Point(15, 231);
+            this.lBL.Location = new System.Drawing.Point(15, 277);
             this.lBL.Name = "lBL";
             this.lBL.Size = new System.Drawing.Size(32, 13);
             this.lBL.TabIndex = 6;
@@ -652,71 +710,40 @@
             this.cbFrameFetcher.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbFrameFetcher.Location = new System.Drawing.Point(15, 11);
             this.cbFrameFetcher.Name = "cbFrameFetcher";
-            this.cbFrameFetcher.Size = new System.Drawing.Size(64, 17);
+            this.cbFrameFetcher.Size = new System.Drawing.Size(59, 17);
             this.cbFrameFetcher.TabIndex = 3;
-            this.cbFrameFetcher.Text = "Preview";
+            this.cbFrameFetcher.Text = "Enable";
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
             // 
-            // trackBL
+            // label3
             // 
-            this.trackBL.AutoSize = false;
-            this.trackBL.Location = new System.Drawing.Point(15, 247);
-            this.trackBL.Maximum = 255;
-            this.trackBL.Name = "trackBL";
-            this.trackBL.Size = new System.Drawing.Size(190, 22);
-            this.trackBL.TabIndex = 31;
-            this.trackBL.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBL.Scroll += new System.EventHandler(this.trackBL_Scroll);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(15, 80);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(43, 13);
+            this.label3.TabIndex = 35;
+            this.label3.Text = "Sensor:";
             // 
-            // trackWL
+            // sensorType
             // 
-            this.trackWL.AutoSize = false;
-            this.trackWL.Location = new System.Drawing.Point(15, 297);
-            this.trackWL.Maximum = 255;
-            this.trackWL.Name = "trackWL";
-            this.trackWL.Size = new System.Drawing.Size(190, 22);
-            this.trackWL.TabIndex = 32;
-            this.trackWL.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackWL.Value = 255;
-            this.trackWL.Scroll += new System.EventHandler(this.trackWL_Scroll);
-            // 
-            // meanAmount
-            // 
-            this.meanAmount.Location = new System.Drawing.Point(128, 81);
-            this.meanAmount.Maximum = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.meanAmount.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.meanAmount.Name = "meanAmount";
-            this.meanAmount.Size = new System.Drawing.Size(58, 20);
-            this.meanAmount.TabIndex = 34;
-            this.meanAmount.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 83);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 13);
-            this.label2.TabIndex = 33;
-            this.label2.Text = "Mean exposures:";
+            this.sensorType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.sensorType.FormattingEnabled = true;
+            this.sensorType.Items.AddRange(new object[] {
+            "RGGB",
+            "BGGR",
+            "Monochrome"});
+            this.sensorType.Location = new System.Drawing.Point(65, 80);
+            this.sensorType.Name = "sensorType";
+            this.sensorType.Size = new System.Drawing.Size(121, 21);
+            this.sensorType.TabIndex = 36;
+            this.sensorType.SelectedIndexChanged += new System.EventHandler(this.sensorType_SelectedIndexChanged);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(812, 530);
+            this.ClientSize = new System.Drawing.Size(1121, 691);
             this.Controls.Add(this.pnlClient);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.msMain);
@@ -734,6 +761,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.pnlVideoControls.ResumeLayout(false);
             this.pnlVideoControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.histogram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackGain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expTime)).EndInit();
@@ -750,9 +780,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -817,6 +844,8 @@
         private System.Windows.Forms.TrackBar trackBL;
         private System.Windows.Forms.NumericUpDown meanAmount;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox sensorType;
+        private System.Windows.Forms.Label label3;
     }
 }
 
