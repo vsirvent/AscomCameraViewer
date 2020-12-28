@@ -53,9 +53,12 @@ namespace Client
 		    cameraImage = new CameraImage();
 
 			ThreadPool.QueueUserWorkItem(new WaitCallback(DisplayVideoFrames));
-		}
 
-		protected override void Dispose(bool disposing)
+            toolStripSizeLabel.Text = "Size: N/A";
+
+        }
+
+        protected override void Dispose(bool disposing)
 		{
 			if (disposing && (components != null))
 			{
@@ -86,19 +89,13 @@ namespace Client
 						imageWidth = videoObject.Width;
 						imageHeight = videoObject.Height;
 						pictureBox.Image = new Bitmap(imageWidth, imageHeight);
-
-						ResizeVideoFrameTo(imageWidth, imageHeight);
 					}
 				}
 				finally
 				{
 					Cursor = Cursors.Default;
 				}
-
-
-				pictureBox.Width = videoObject.Width;
-				pictureBox.Height = videoObject.Height;
-
+                
 				UpdateCameraState(true);
 			}
 		}
@@ -193,17 +190,7 @@ namespace Client
 
             if (isEmptyFrame)
             {
-                using (Graphics g = Graphics.FromImage(pictureBox.Image))
-                {
-                    if (bmp == null)
-                        g.Clear(Color.Green);
-                    else
-                        g.DrawImage(bmp, 0, 0);
-
-                    g.Save();
-                }
-
-                pictureBox.Invalidate();
+                pictureBox.Image = bmp;
                 return;
             }
 
@@ -221,17 +208,14 @@ namespace Client
                 }
                 startTicks = DateTime.Now.Ticks;
             }
-
-            using (Graphics g = Graphics.FromImage(pictureBox.Image))
+            pictureBox.Image = bmp;
+            pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (toolStripSizeLabel.Visible == false)
             {
-                g.DrawImage(bmp, 0, 0);
-
-                g.Save();
+                toolStripSizeLabel.Visible = true;
             }
-
-            pictureBox.Invalidate();
-            bmp.Dispose();
-		}
+            toolStripSizeLabel.Text = "Size: " + bmp.Width + "x" + bmp.Height;
+        }
 		
 		internal class FakeFrame : IVideoFrame
 		{
@@ -289,13 +273,13 @@ namespace Client
 					try
 					{
 						IVideoFrame frame = videoObject.LastVideoFrame;
+                        Bitmap bmp = null;
 
-						if (frame != null && frame.ImageArray != null)
+                        if (frame != null && frame.ImageArray != null)
 						{
 							lastDisplayedVideoFrameNumber = frame.FrameNumber;
-                            Bitmap bmp = new Bitmap(imageWidth, imageHeight, PixelFormat.Format24bppRgb);
-
-                            if (false)
+                           
+                            if (true)
                             {
                                 System.Object[,] bayer = (System.Object[,])frame.ImageArray;
                                 byte[] data = new byte[imageWidth * imageHeight * 3];
@@ -398,9 +382,8 @@ namespace Client
                                     }
                                 }
                             }
-                            Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { frame, bmp });
-                            
-						}
+                            PaintVideoFrame(frame, bmp);
+         				}
 					}
 					catch(ObjectDisposedException){ }
 					catch(Exception ex)
@@ -416,9 +399,9 @@ namespace Client
 						}
 						try
 						{
-							Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] {null, errorBmp});
-						}
-						catch(InvalidOperationException)
+                            PaintVideoFrame(null, errorBmp);
+                        }
+                        catch (InvalidOperationException)
 						{
 							// InvalidOperationException could be thrown when closing down the app i.e. when the form has been already disposed
 						}
@@ -443,7 +426,9 @@ namespace Client
 				tssDisplayRate.Text = string.Empty;
 				tssFrameNo.Visible = false;
 				tssDisplayRate.Visible = false;
-			}
+                toolStripSizeLabel.Visible = false;
+
+            }
 			else
 			{
 				if (videoObject.State == CameraStates.cameraError) 
@@ -453,19 +438,19 @@ namespace Client
                     tssCameraState.Text = "Connected";
                 }
 
-                    if (!tssFrameNo.Visible) tssFrameNo.Visible = true;				
+                if (!tssFrameNo.Visible) tssFrameNo.Visible = true;				
 
 				tssFrameNo.Text = currentFrameNo.ToString("Current Frame: 0", CultureInfo.InvariantCulture);
+                if (!tssDisplayRate.Visible) tssDisplayRate.Visible = true;
+
                 if (!double.IsNaN(renderFps))
                 {
-                    if (!tssDisplayRate.Visible) tssDisplayRate.Visible = true;
                     tssDisplayRate.Text = renderFps.ToString("Display Rate: 0.00 fps");
                 }
                 else
                 {
                     tssDisplayRate.Text = "Display Rate: N/A";
                 }
-				tssRecordingFile.Visible = false;
 			}
 		}
 
@@ -504,6 +489,11 @@ namespace Client
 		}
 
         private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void OnWindowSizeChanged(object sender, EventArgs e)
         {
 
         }

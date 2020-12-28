@@ -1,0 +1,132 @@
+
+.vs/ASCOM.VideoClient/v15/Server/sqlite3/storage.ide
+.vs/ASCOM.VideoClient/v15/Server/sqlite3/db.lock
+.vs/ASCOM.VideoClient/v15/.suo
+obj/Debug/ASCOM.VideoClient.csproj.CoreCompileInputs.cache
+obj/Debug/ASCOM.VideoClient.csproj.FileListAbsolute.txt
+obj/Debug/ASCOM.VideoClient.csproj.GenerateResource.cache
+obj/Debug/ASCOM.VideoClient.csprojResolveAssemblyReference.cache
+obj/Debug/Client.frmCameraInfo.resources
+obj/Debug/Client.frmDriverInfo.resources
+obj/Debug/Client.frmMain.resources
+obj/Debug/Client.frmSettings.resources
+obj/Debug/Client.frmUnexpectedError.resources
+obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+packages/Accord.3.8.0/.signature.p7s
+packages/Accord.3.8.0/Accord.3.8.0.nupkg
+packages/Accord.3.8.0/build/Accord.dll.config
+packages/Accord.3.8.0/build/Accord.targets
+packages/Accord.3.8.0/lib/net35-unity full v3.5/Accord.dll
+packages/Accord.3.8.0/lib/net35-unity full v3.5/Accord.xml
+packages/Accord.3.8.0/lib/net35-unity micro v3.5/Accord.dll
+packages/Accord.3.8.0/lib/net35-unity micro v3.5/Accord.xml
+packages/Accord.3.8.0/lib/net35-unity subset v3.5/Accord.dll
+packages/Accord.3.8.0/lib/net35-unity subset v3.5/Accord.xml
+packages/Accord.3.8.0/lib/net35-unity web v3.5/Accord.dll
+packages/Accord.3.8.0/lib/net35-unity web v3.5/Accord.xml
+packages/Accord.3.8.0/lib/net35/Accord.dll
+packages/Accord.3.8.0/lib/net35/Accord.xml
+packages/Accord.3.8.0/lib/net40/Accord.dll
+packages/Accord.3.8.0/lib/net40/Accord.xml
+packages/Accord.3.8.0/lib/net45/Accord.dll
+packages/Accord.3.8.0/lib/net45/Accord.xml
+packages/Accord.3.8.0/lib/net46/Accord.dll
+packages/Accord.3.8.0/lib/net46/Accord.xml
+packages/Accord.3.8.0/lib/net462/Accord.dll
+packages/Accord.3.8.0/lib/net462/Accord.xml
+packages/Accord.3.8.0/lib/netstandard1.4/Accord.dll
+packages/Accord.3.8.0/lib/netstandard1.4/Accord.xml
+packages/Accord.3.8.0/lib/netstandard2.0/Accord.dll
+packages/Accord.3.8.0/lib/netstandard2.0/Accord.xml
+packages/Accord.Imaging.3.8.0/.signature.p7s
+packages/Accord.Imaging.3.8.0/Accord.Imaging.3.8.0.nupkg
+packages/Accord.Imaging.3.8.0/lib/net35-unity full v3.5/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net35-unity full v3.5/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net35-unity micro v3.5/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net35-unity micro v3.5/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net35-unity subset v3.5/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net35-unity subset v3.5/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net35-unity web v3.5/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net35-unity web v3.5/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net35/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net35/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net40/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net40/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net45/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net45/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net46/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net46/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/net462/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/net462/Accord.Imaging.xml
+packages/Accord.Imaging.3.8.0/lib/netstandard2.0/Accord.Imaging.dll
+packages/Accord.Imaging.3.8.0/lib/netstandard2.0/Accord.Imaging.xml
+packages/Accord.Math.3.8.0/.signature.p7s
+packages/Accord.Math.3.8.0/Accord.Math.3.8.0.nupkg
+packages/Accord.Math.3.8.0/lib/net35-unity full v3.5/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net35-unity full v3.5/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net35-unity full v3.5/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net35-unity full v3.5/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net35-unity micro v3.5/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net35-unity micro v3.5/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net35-unity micro v3.5/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net35-unity micro v3.5/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net35-unity subset v3.5/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net35-unity subset v3.5/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net35-unity subset v3.5/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net35-unity subset v3.5/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net35-unity web v3.5/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net35-unity web v3.5/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net35-unity web v3.5/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net35-unity web v3.5/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net35/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net35/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net35/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net35/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net40/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net40/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net40/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net40/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net45/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net45/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net45/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net45/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net46/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net46/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net46/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net46/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/net462/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/net462/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/net462/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/net462/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/netstandard1.4/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/netstandard1.4/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/netstandard1.4/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/netstandard1.4/Accord.Math.xml
+packages/Accord.Math.3.8.0/lib/netstandard2.0/Accord.Math.Core.dll
+packages/Accord.Math.3.8.0/lib/netstandard2.0/Accord.Math.Core.xml
+packages/Accord.Math.3.8.0/lib/netstandard2.0/Accord.Math.dll
+packages/Accord.Math.3.8.0/lib/netstandard2.0/Accord.Math.xml
+packages/Accord.Statistics.3.8.0/.signature.p7s
+packages/Accord.Statistics.3.8.0/Accord.Statistics.3.8.0.nupkg
+packages/Accord.Statistics.3.8.0/lib/net35-unity full v3.5/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net35-unity full v3.5/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net35-unity micro v3.5/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net35-unity micro v3.5/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net35-unity subset v3.5/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net35-unity subset v3.5/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net35-unity web v3.5/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net35-unity web v3.5/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net35/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net35/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net40/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net40/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net45/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net45/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net46/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net46/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/net462/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/net462/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/netstandard1.4/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/netstandard1.4/Accord.Statistics.xml
+packages/Accord.Statistics.3.8.0/lib/netstandard2.0/Accord.Statistics.dll
+packages/Accord.Statistics.3.8.0/lib/netstandard2.0/Accord.Statistics.xml

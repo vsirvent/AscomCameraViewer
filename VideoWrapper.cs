@@ -354,16 +354,16 @@ namespace Client
                     if (video.ImageReady)
                     {
                         vframe.frame = video.ImageArrayVariant;
-                        vframe.expDuration = 0.03;
+                        vframe.expDuration = 1;
                         vframe.expStartTime = video.LastExposureStartTime;
                         vframe.frameNumber++;
                         System.Console.Out.WriteLine("Show image " + vframe.frameNumber);
-                        video.StartExposure(0.03, true);
+                        video.StartExposure(1, true);
                         ret = vframe;
                     }
                     else
                     {
-                        System.Console.Out.WriteLine("Show image not ready");
+                        //System.Console.Out.WriteLine("Show image not ready");
                     }
                 }
                 return ret;

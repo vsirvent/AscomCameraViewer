@@ -20,7 +20,6 @@
             this.tssCameraState = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssFrameNo = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssDisplayRate = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssRecordingFile = new System.Windows.Forms.ToolStripStatusLabel();
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,6 +35,12 @@
             this.pnlVideoFrames = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.pnlVideoControls = new System.Windows.Forms.Panel();
+            this.cbHistoEq = new System.Windows.Forms.CheckBox();
+            this.nWhite = new System.Windows.Forms.NumericUpDown();
+            this.nBlack = new System.Windows.Forms.NumericUpDown();
+            this.nGamma = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nContrast = new System.Windows.Forms.NumericUpDown();
             this.nBright = new System.Windows.Forms.NumericUpDown();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.sharpSigma = new System.Windows.Forms.NumericUpDown();
@@ -60,18 +65,17 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
-            this.nContrast = new System.Windows.Forms.NumericUpDown();
-            this.nGamma = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.nBlack = new System.Windows.Forms.NumericUpDown();
-            this.nWhite = new System.Windows.Forms.NumericUpDown();
-            this.cbHistoEq = new System.Windows.Forms.CheckBox();
+            this.toolStripSizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
             this.pnlVideoFrames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.pnlVideoControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nGamma)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBright)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sharpSigma)).BeginInit();
@@ -81,10 +85,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nContrast)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nGamma)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -93,10 +93,10 @@
             this.tssCameraState,
             this.tssFrameNo,
             this.tssDisplayRate,
-            this.tssRecordingFile});
+            this.toolStripSizeLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 506);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(873, 24);
+            this.statusStrip.Size = new System.Drawing.Size(812, 24);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -129,17 +129,6 @@
             this.tssDisplayRate.Text = "Display Rate";
             this.tssDisplayRate.Visible = false;
             // 
-            // tssRecordingFile
-            // 
-            this.tssRecordingFile.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.tssRecordingFile.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.tssRecordingFile.Name = "tssRecordingFile";
-            this.tssRecordingFile.Size = new System.Drawing.Size(76, 19);
-            this.tssRecordingFile.Text = "File (xxx Mb)";
-            this.tssRecordingFile.Visible = false;
-            // 
             // msMain
             // 
             this.msMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -148,7 +137,7 @@
             this.miSettings});
             this.msMain.Location = new System.Drawing.Point(0, 0);
             this.msMain.Name = "msMain";
-            this.msMain.Size = new System.Drawing.Size(873, 24);
+            this.msMain.Size = new System.Drawing.Size(812, 24);
             this.msMain.TabIndex = 2;
             this.msMain.Text = "menuStrip1";
             // 
@@ -237,7 +226,7 @@
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlClient.Location = new System.Drawing.Point(0, 24);
             this.pnlClient.Name = "pnlClient";
-            this.pnlClient.Size = new System.Drawing.Size(873, 482);
+            this.pnlClient.Size = new System.Drawing.Size(812, 482);
             this.pnlClient.TabIndex = 4;
             // 
             // pnlVideoFrames
@@ -246,7 +235,7 @@
             this.pnlVideoFrames.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlVideoFrames.Location = new System.Drawing.Point(0, 0);
             this.pnlVideoFrames.Name = "pnlVideoFrames";
-            this.pnlVideoFrames.Size = new System.Drawing.Size(647, 482);
+            this.pnlVideoFrames.Size = new System.Drawing.Size(586, 482);
             this.pnlVideoFrames.TabIndex = 2;
             // 
             // pictureBox
@@ -257,10 +246,11 @@
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(647, 484);
+            this.pictureBox.Size = new System.Drawing.Size(586, 484);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
+            this.pictureBox.SizeChanged += new System.EventHandler(this.OnWindowSizeChanged);
             // 
             // pnlVideoControls
             // 
@@ -285,10 +275,92 @@
             this.pnlVideoControls.Controls.Add(this.cbFrameFetcher);
             this.pnlVideoControls.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlVideoControls.Enabled = false;
-            this.pnlVideoControls.Location = new System.Drawing.Point(647, 0);
+            this.pnlVideoControls.Location = new System.Drawing.Point(586, 0);
             this.pnlVideoControls.Name = "pnlVideoControls";
             this.pnlVideoControls.Size = new System.Drawing.Size(226, 482);
             this.pnlVideoControls.TabIndex = 1;
+            // 
+            // cbHistoEq
+            // 
+            this.cbHistoEq.AutoSize = true;
+            this.cbHistoEq.Location = new System.Drawing.Point(22, 200);
+            this.cbHistoEq.Name = "cbHistoEq";
+            this.cbHistoEq.Size = new System.Drawing.Size(92, 17);
+            this.cbHistoEq.TabIndex = 26;
+            this.cbHistoEq.Text = "Histogram Eq.";
+            this.cbHistoEq.UseVisualStyleBackColor = true;
+            // 
+            // nWhite
+            // 
+            this.nWhite.Location = new System.Drawing.Point(128, 100);
+            this.nWhite.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nWhite.Name = "nWhite";
+            this.nWhite.Size = new System.Drawing.Size(58, 20);
+            this.nWhite.TabIndex = 25;
+            this.nWhite.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
+            // nBlack
+            // 
+            this.nBlack.Location = new System.Drawing.Point(128, 76);
+            this.nBlack.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nBlack.Name = "nBlack";
+            this.nBlack.Size = new System.Drawing.Size(58, 20);
+            this.nBlack.TabIndex = 24;
+            // 
+            // nGamma
+            // 
+            this.nGamma.Location = new System.Drawing.Point(128, 172);
+            this.nGamma.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nGamma.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            -2147483648});
+            this.nGamma.Name = "nGamma";
+            this.nGamma.Size = new System.Drawing.Size(58, 20);
+            this.nGamma.TabIndex = 23;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(15, 175);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(73, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Gamma [-5,5]:";
+            // 
+            // nContrast
+            // 
+            this.nContrast.Location = new System.Drawing.Point(128, 124);
+            this.nContrast.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nContrast.Minimum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            -2147483648});
+            this.nContrast.Name = "nContrast";
+            this.nContrast.Size = new System.Drawing.Size(58, 20);
+            this.nContrast.TabIndex = 21;
             // 
             // nBright
             // 
@@ -523,93 +595,21 @@
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
             // 
-            // nContrast
+            // toolStripSizeLabel
             // 
-            this.nContrast.Location = new System.Drawing.Point(128, 124);
-            this.nContrast.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nContrast.Minimum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            -2147483648});
-            this.nContrast.Name = "nContrast";
-            this.nContrast.Size = new System.Drawing.Size(58, 20);
-            this.nContrast.TabIndex = 21;
-            // 
-            // nGamma
-            // 
-            this.nGamma.Location = new System.Drawing.Point(128, 172);
-            this.nGamma.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nGamma.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            -2147483648});
-            this.nGamma.Name = "nGamma";
-            this.nGamma.Size = new System.Drawing.Size(58, 20);
-            this.nGamma.TabIndex = 23;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 175);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(73, 13);
-            this.label11.TabIndex = 22;
-            this.label11.Text = "Gamma [-5,5]:";
-            // 
-            // nBlack
-            // 
-            this.nBlack.Location = new System.Drawing.Point(128, 76);
-            this.nBlack.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nBlack.Name = "nBlack";
-            this.nBlack.Size = new System.Drawing.Size(58, 20);
-            this.nBlack.TabIndex = 24;
-            // 
-            // nWhite
-            // 
-            this.nWhite.Location = new System.Drawing.Point(128, 100);
-            this.nWhite.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nWhite.Name = "nWhite";
-            this.nWhite.Size = new System.Drawing.Size(58, 20);
-            this.nWhite.TabIndex = 25;
-            this.nWhite.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            // 
-            // cbHistoEq
-            // 
-            this.cbHistoEq.AutoSize = true;
-            this.cbHistoEq.Location = new System.Drawing.Point(22, 200);
-            this.cbHistoEq.Name = "cbHistoEq";
-            this.cbHistoEq.Size = new System.Drawing.Size(92, 17);
-            this.cbHistoEq.TabIndex = 26;
-            this.cbHistoEq.Text = "Histogram Eq.";
-            this.cbHistoEq.UseVisualStyleBackColor = true;
+            this.toolStripSizeLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripSizeLabel.Name = "toolStripSizeLabel";
+            this.toolStripSizeLabel.Size = new System.Drawing.Size(34, 19);
+            this.toolStripSizeLabel.Text = "Size:";
+            this.toolStripSizeLabel.Visible = false;
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(873, 530);
+            this.ClientSize = new System.Drawing.Size(812, 530);
             this.Controls.Add(this.pnlClient);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.msMain);
@@ -617,6 +617,7 @@
             this.MainMenuStrip = this.msMain;
             this.Name = "frmMain";
             this.Text = "ASCOM Video Client";
+            this.SizeChanged += new System.EventHandler(this.OnWindowSizeChanged);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.msMain.ResumeLayout(false);
@@ -626,6 +627,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.pnlVideoControls.ResumeLayout(false);
             this.pnlVideoControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nGamma)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBright)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -637,10 +642,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nContrast)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nGamma)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -667,7 +668,6 @@
 		private System.Windows.Forms.ToolStripMenuItem miCameraInfo;
 		private System.Windows.Forms.ToolStripMenuItem miDriverInfo;
 		private System.Windows.Forms.Panel pnlVideoFrames;
-		private System.Windows.Forms.ToolStripStatusLabel tssRecordingFile;
 		private System.Windows.Forms.ToolStripMenuItem miVideoSetup;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.NumericUpDown noiseSpatial;
@@ -698,6 +698,7 @@
         private System.Windows.Forms.NumericUpDown nWhite;
         private System.Windows.Forms.NumericUpDown nBlack;
         private System.Windows.Forms.CheckBox cbHistoEq;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripSizeLabel;
     }
 }
 
