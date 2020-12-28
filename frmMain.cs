@@ -310,6 +310,8 @@ namespace Client
 
         private SortedDictionary<int, int> histogramVals = new SortedDictionary<int, int>();
         private System.Int32[,] meanbayer = null;
+
+
         private void DisplayVideoFrames(object state)
 		{
 			while(running)
