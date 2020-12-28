@@ -44,7 +44,18 @@ namespace Client
 	
 		}
 
-		public void Disconnect()
+        private double expTime = 1.0;
+        public double ExposureTime {
+            get
+            {
+                return expTime;
+            }
+            set {
+                expTime = value;
+            }
+        }
+
+        public void Disconnect()
 		{
 			if (video != null)
 			{
@@ -223,16 +234,49 @@ namespace Client
 			}
 		}
 
-		public string Gain
+		public int Gain
 		{
-			get
-			{
-				return "N/A";
-			}
+            get
+            {
+                try
+                {
+                    return video.Gain;
+                }
+                catch (Exception e)
+                {
+                    return 0;
+                }
+            }
+            set
+            {
+                try
+                {
+                    video.Gain = (short)value;
+                }catch(Exception e) {
 
+                }
+            }
 		}
 
-		public void IncreaseGain()
+        public int GainMin
+        {
+            get
+            {
+                return video.GainMin;
+            }
+
+        }
+
+        public int GainMax
+        {
+            get
+            {
+                return video.GainMax;
+            }
+
+        }
+
+        public void IncreaseGain()
 		{
 			
 		}
@@ -317,7 +361,7 @@ namespace Client
 			return video.Action(actionName, actionParameters);
 		}
 
-        class VideoFrame: IVideoFrame
+        private class VideoFrame: IVideoFrame
         {
             public object frame = null;
             public int frameNumber = 0;
@@ -337,8 +381,8 @@ namespace Client
             public ArrayList ImageMetadata { get { return extra; } }
         }
 
-        VideoFrame vframe = new VideoFrame();
-        bool init = false;
+        private VideoFrame vframe = new VideoFrame();
+        private bool init = false;
 		public IVideoFrame LastVideoFrame
 		{
 			get
@@ -348,17 +392,17 @@ namespace Client
                 {
                     if (!init)
                     {
-                        video.StartExposure(0.03, true);
+                        video.StartExposure(expTime, true);
                         init = true;
                     }
                     if (video.ImageReady)
                     {
                         vframe.frame = video.ImageArrayVariant;
-                        vframe.expDuration = 1;
+                        vframe.expDuration = expTime;
                         vframe.expStartTime = video.LastExposureStartTime;
                         vframe.frameNumber++;
                         System.Console.Out.WriteLine("Show image " + vframe.frameNumber);
-                        video.StartExposure(1, true);
+                        video.StartExposure(expTime, true);
                         ret = vframe;
                     }
                     else

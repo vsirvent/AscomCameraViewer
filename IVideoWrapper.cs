@@ -31,8 +31,11 @@ namespace Client
 		string Gamma { get; }
 		bool CanIncreaseGamma { get; }
 		bool CanDecreaseGamma { get; }
-		string Gain { get; }
-		bool CanIncreaseGain { get; }
+		int Gain { get; set;  }
+        int GainMin { get; }
+        int GainMax { get; }
+
+        bool CanIncreaseGain { get; }
 		bool CanDecreaseGain { get; }
 		string Integration { get; }
 		bool CanIncreaseIntegration { get; }
@@ -57,6 +60,7 @@ namespace Client
 		string CameraCCDDimentionInPixels { get; }
 		string ExposureRangeInfo { get; }
 		string GainRangeInfo { get; }
-		string GammaRangeInfo { get; }
-	}
+        string GammaRangeInfo { get; }
+        double ExposureTime { get; set; }
+    }
 }

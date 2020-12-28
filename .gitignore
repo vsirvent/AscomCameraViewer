@@ -159,3 +159,16 @@ obj/Debug/ASCOM.VideoClient.csproj.CopyComplete
 obj/Debug/Client.Properties.Resources.resources
 obj/Debug/VideoClient.exe
 obj/Debug/VideoClient.pdb
+obj/Debug/DesignTimeResolveAssemblyReferences.cache
+obj/x86/Debug/ASCOM.VideoClient.csproj.CopyComplete
+obj/x86/Debug/ASCOM.VideoClient.csproj.CoreCompileInputs.cache
+obj/x86/Debug/ASCOM.VideoClient.csproj.FileListAbsolute.txt
+obj/x86/Debug/ASCOM.VideoClient.csproj.GenerateResource.cache
+obj/x86/Debug/Client.frmCameraInfo.resources
+obj/x86/Debug/Client.frmDriverInfo.resources
+obj/x86/Debug/Client.frmMain.resources
+obj/x86/Debug/Client.frmSettings.resources
+obj/x86/Debug/Client.frmUnexpectedError.resources
+obj/x86/Debug/Client.Properties.Resources.resources
+obj/x86/Debug/VideoClient.exe
+obj/x86/Debug/VideoClient.pdb

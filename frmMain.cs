@@ -124,26 +124,31 @@ namespace Client
 			miVideoSetup.Enabled = connected && videoObject != null;
 
 			UpdateState();
+            bool was_enabled = pnlVideoControls.Enabled;
 
-			pnlVideoControls.Enabled = connected;
 		
 			if (videoObject != null)
 			{
-				Text = string.Format("ASCOM Video Client - {0}{1}", 
+                pnlVideoControls.Enabled = connected;
+
+                Text = string.Format("ASCOM Video Client - {0}{1}", 
 						videoObject.DeviceName, 
 						videoObject.VideoCaptureDeviceName != null
 							? string.Format(" ({0})", videoObject.VideoCaptureDeviceName) 
 							: string.Empty);
+                trackGain.Minimum = videoObject.GainMin;
+                trackGain.Maximum = videoObject.GainMax;
 			}
 			else
 			{
 				Text = "ASCOM Video Client";
 			}
-		}
+       
+        }
 
-		
 
-		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			DisconnectFromCamera();
 			Close();
@@ -496,6 +501,27 @@ namespace Client
         private void OnWindowSizeChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void OnExposureTimeChanged(object sender, EventArgs e)
+        {
+            if (videoObject != null)
+            {
+                videoObject.ExposureTime = (double)expTime.Value;
+            }
+        }
+
+        private void trackGain_Scroll(object sender, EventArgs e)
+        {
+            if (videoObject != null)
+            {
+                if (trackGain.Value != videoObject.Gain)
+                {
+                    videoObject.Gain = trackGain.Value;
+                    lgain.Text = videoObject.Gain.ToString();
+                    trackGain.Value = videoObject.Gain;
+                }
+            }
         }
     }
 }

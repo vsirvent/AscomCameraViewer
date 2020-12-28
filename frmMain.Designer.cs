@@ -20,6 +20,7 @@
             this.tssCameraState = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssFrameNo = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssDisplayRate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripSizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +66,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
-            this.toolStripSizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.expTime = new System.Windows.Forms.NumericUpDown();
+            this.trackGain = new System.Windows.Forms.TrackBar();
+            this.lgain = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
@@ -85,6 +88,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expTime)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -92,8 +97,8 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tssCameraState,
             this.tssFrameNo,
-            this.tssDisplayRate,
-            this.toolStripSizeLabel});
+            this.toolStripSizeLabel,
+            this.tssDisplayRate});
             this.statusStrip.Location = new System.Drawing.Point(0, 506);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(812, 24);
@@ -128,6 +133,16 @@
             this.tssDisplayRate.Size = new System.Drawing.Size(75, 19);
             this.tssDisplayRate.Text = "Display Rate";
             this.tssDisplayRate.Visible = false;
+            // 
+            // toolStripSizeLabel
+            // 
+            this.toolStripSizeLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripSizeLabel.Name = "toolStripSizeLabel";
+            this.toolStripSizeLabel.Size = new System.Drawing.Size(31, 19);
+            this.toolStripSizeLabel.Text = "Size";
+            this.toolStripSizeLabel.Visible = false;
             // 
             // msMain
             // 
@@ -257,6 +272,9 @@
             this.pnlVideoControls.AutoScroll = true;
             this.pnlVideoControls.BackColor = System.Drawing.SystemColors.Control;
             this.pnlVideoControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlVideoControls.Controls.Add(this.lgain);
+            this.pnlVideoControls.Controls.Add(this.trackGain);
+            this.pnlVideoControls.Controls.Add(this.expTime);
             this.pnlVideoControls.Controls.Add(this.cbHistoEq);
             this.pnlVideoControls.Controls.Add(this.nWhite);
             this.pnlVideoControls.Controls.Add(this.nBlack);
@@ -292,7 +310,7 @@
             // 
             // nWhite
             // 
-            this.nWhite.Location = new System.Drawing.Point(128, 100);
+            this.nWhite.Location = new System.Drawing.Point(128, 102);
             this.nWhite.Maximum = new decimal(new int[] {
             255,
             0,
@@ -309,7 +327,7 @@
             // 
             // nBlack
             // 
-            this.nBlack.Location = new System.Drawing.Point(128, 76);
+            this.nBlack.Location = new System.Drawing.Point(128, 79);
             this.nBlack.Maximum = new decimal(new int[] {
             255,
             0,
@@ -321,7 +339,7 @@
             // 
             // nGamma
             // 
-            this.nGamma.Location = new System.Drawing.Point(128, 172);
+            this.nGamma.Location = new System.Drawing.Point(128, 171);
             this.nGamma.Maximum = new decimal(new int[] {
             5,
             0,
@@ -339,7 +357,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 175);
+            this.label11.Location = new System.Drawing.Point(15, 173);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 13);
             this.label11.TabIndex = 22;
@@ -347,7 +365,7 @@
             // 
             // nContrast
             // 
-            this.nContrast.Location = new System.Drawing.Point(128, 124);
+            this.nContrast.Location = new System.Drawing.Point(128, 125);
             this.nContrast.Maximum = new decimal(new int[] {
             255,
             0,
@@ -531,7 +549,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 148);
+            this.label6.Location = new System.Drawing.Point(15, 150);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 9;
@@ -540,7 +558,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 126);
+            this.label5.Location = new System.Drawing.Point(15, 127);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 13);
             this.label5.TabIndex = 8;
@@ -549,7 +567,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 102);
+            this.label4.Location = new System.Drawing.Point(15, 104);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 7;
@@ -558,7 +576,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 79);
+            this.label3.Location = new System.Drawing.Point(15, 81);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 6;
@@ -567,7 +585,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 57);
+            this.label2.Location = new System.Drawing.Point(15, 58);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 5;
@@ -578,9 +596,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(15, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(109, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Exposure Time:";
+            this.label1.Text = "Exposure Time (sec.):";
             // 
             // cbFrameFetcher
             // 
@@ -595,15 +613,48 @@
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
             // 
-            // toolStripSizeLabel
+            // expTime
             // 
-            this.toolStripSizeLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripSizeLabel.Name = "toolStripSizeLabel";
-            this.toolStripSizeLabel.Size = new System.Drawing.Size(34, 19);
-            this.toolStripSizeLabel.Text = "Size:";
-            this.toolStripSizeLabel.Visible = false;
+            this.expTime.Location = new System.Drawing.Point(128, 33);
+            this.expTime.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.expTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.expTime.Name = "expTime";
+            this.expTime.Size = new System.Drawing.Size(58, 20);
+            this.expTime.TabIndex = 27;
+            this.expTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.expTime.ValueChanged += new System.EventHandler(this.OnExposureTimeChanged);
+            // 
+            // trackGain
+            // 
+            this.trackGain.AutoSize = false;
+            this.trackGain.Location = new System.Drawing.Point(53, 55);
+            this.trackGain.Maximum = 100;
+            this.trackGain.Name = "trackGain";
+            this.trackGain.Size = new System.Drawing.Size(133, 22);
+            this.trackGain.TabIndex = 28;
+            this.trackGain.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackGain.Scroll += new System.EventHandler(this.trackGain_Scroll);
+            // 
+            // lgain
+            // 
+            this.lgain.AutoSize = true;
+            this.lgain.Location = new System.Drawing.Point(192, 58);
+            this.lgain.Name = "lgain";
+            this.lgain.Size = new System.Drawing.Size(13, 13);
+            this.lgain.TabIndex = 29;
+            this.lgain.Text = "0";
             // 
             // frmMain
             // 
@@ -642,6 +693,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expTime)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -699,6 +752,9 @@
         private System.Windows.Forms.NumericUpDown nBlack;
         private System.Windows.Forms.CheckBox cbHistoEq;
         private System.Windows.Forms.ToolStripStatusLabel toolStripSizeLabel;
+        private System.Windows.Forms.TrackBar trackGain;
+        private System.Windows.Forms.NumericUpDown expTime;
+        private System.Windows.Forms.Label lgain;
     }
 }
 
