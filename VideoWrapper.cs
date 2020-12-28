@@ -13,11 +13,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using ASCOM;
 using ASCOM.DeviceInterface;
 using ASCOM.DriverAccess;
@@ -262,7 +264,15 @@ namespace Client
         {
             get
             {
-                return video.GainMin;
+                int ret = 0;
+                try
+                {
+                    ret = video.GainMin;
+                }catch(Exception)
+                {
+                    ret = 0;
+                }
+                return ret;
             }
 
         }
@@ -271,9 +281,17 @@ namespace Client
         {
             get
             {
-                return video.GainMax;
+                int ret = 0;
+                try
+                {
+                    ret = video.GainMax;
+                }
+                catch (Exception)
+                {
+                    ret = 0;
+                }
+                return ret;
             }
-
         }
 
         public void IncreaseGain()
@@ -381,6 +399,12 @@ namespace Client
             public ArrayList ImageMetadata { get { return extra; } }
         }
 
+        private async void StartExposure() {
+            await Task.Run(() => {
+                
+                });
+        }
+
         private VideoFrame vframe = new VideoFrame();
         private bool init = false;
 		public IVideoFrame LastVideoFrame
@@ -397,13 +421,14 @@ namespace Client
                     }
                     if (video.ImageReady)
                     {
-                        vframe.frame = video.ImageArrayVariant;
+                        Stopwatch sw = Stopwatch.StartNew();
+                        vframe.frame = video.ImageArray;
                         vframe.expDuration = expTime;
                         vframe.expStartTime = video.LastExposureStartTime;
                         vframe.frameNumber++;
-                        System.Console.Out.WriteLine("Show image " + vframe.frameNumber);
-                        video.StartExposure(expTime, true);
                         ret = vframe;
+                        video.StartExposure(expTime, true);
+                        sw.Stop();
                     }
                     else
                     {

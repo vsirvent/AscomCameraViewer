@@ -66,9 +66,11 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelGain = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
+            this.toolStripProcessTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.histogram = new System.Windows.Forms.PictureBox();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
@@ -90,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.histogram)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -98,7 +101,8 @@
             this.tssCameraState,
             this.tssFrameNo,
             this.toolStripSizeLabel,
-            this.tssDisplayRate});
+            this.tssDisplayRate,
+            this.toolStripProcessTime});
             this.statusStrip.Location = new System.Drawing.Point(0, 506);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(812, 24);
@@ -273,6 +277,7 @@
             this.pnlVideoControls.AutoScroll = true;
             this.pnlVideoControls.BackColor = System.Drawing.SystemColors.Control;
             this.pnlVideoControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlVideoControls.Controls.Add(this.histogram);
             this.pnlVideoControls.Controls.Add(this.lgain);
             this.pnlVideoControls.Controls.Add(this.trackGain);
             this.pnlVideoControls.Controls.Add(this.expTime);
@@ -289,7 +294,7 @@
             this.pnlVideoControls.Controls.Add(this.label5);
             this.pnlVideoControls.Controls.Add(this.label4);
             this.pnlVideoControls.Controls.Add(this.label3);
-            this.pnlVideoControls.Controls.Add(this.label2);
+            this.pnlVideoControls.Controls.Add(this.labelGain);
             this.pnlVideoControls.Controls.Add(this.label1);
             this.pnlVideoControls.Controls.Add(this.cbFrameFetcher);
             this.pnlVideoControls.Dock = System.Windows.Forms.DockStyle.Right;
@@ -311,16 +316,17 @@
             // trackGain
             // 
             this.trackGain.AutoSize = false;
-            this.trackGain.Location = new System.Drawing.Point(53, 55);
+            this.trackGain.Location = new System.Drawing.Point(89, 55);
             this.trackGain.Maximum = 100;
             this.trackGain.Name = "trackGain";
-            this.trackGain.Size = new System.Drawing.Size(133, 22);
+            this.trackGain.Size = new System.Drawing.Size(97, 22);
             this.trackGain.TabIndex = 28;
             this.trackGain.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackGain.Scroll += new System.EventHandler(this.trackGain_Scroll);
             // 
             // expTime
             // 
+            this.expTime.DecimalPlaces = 3;
             this.expTime.Location = new System.Drawing.Point(128, 33);
             this.expTime.Maximum = new decimal(new int[] {
             300,
@@ -331,7 +337,7 @@
             1,
             0,
             0,
-            0});
+            196608});
             this.expTime.Name = "expTime";
             this.expTime.Size = new System.Drawing.Size(58, 20);
             this.expTime.TabIndex = 27;
@@ -345,7 +351,7 @@
             // cbHistoEq
             // 
             this.cbHistoEq.AutoSize = true;
-            this.cbHistoEq.Location = new System.Drawing.Point(22, 200);
+            this.cbHistoEq.Location = new System.Drawing.Point(22, 350);
             this.cbHistoEq.Name = "cbHistoEq";
             this.cbHistoEq.Size = new System.Drawing.Size(92, 17);
             this.cbHistoEq.TabIndex = 26;
@@ -354,7 +360,7 @@
             // 
             // nWhite
             // 
-            this.nWhite.Location = new System.Drawing.Point(128, 102);
+            this.nWhite.Location = new System.Drawing.Point(128, 248);
             this.nWhite.Maximum = new decimal(new int[] {
             255,
             0,
@@ -371,7 +377,7 @@
             // 
             // nBlack
             // 
-            this.nBlack.Location = new System.Drawing.Point(128, 79);
+            this.nBlack.Location = new System.Drawing.Point(128, 225);
             this.nBlack.Maximum = new decimal(new int[] {
             255,
             0,
@@ -383,7 +389,7 @@
             // 
             // nGamma
             // 
-            this.nGamma.Location = new System.Drawing.Point(128, 171);
+            this.nGamma.Location = new System.Drawing.Point(128, 317);
             this.nGamma.Maximum = new decimal(new int[] {
             5,
             0,
@@ -401,7 +407,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 173);
+            this.label11.Location = new System.Drawing.Point(15, 319);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 13);
             this.label11.TabIndex = 22;
@@ -409,7 +415,7 @@
             // 
             // nContrast
             // 
-            this.nContrast.Location = new System.Drawing.Point(128, 125);
+            this.nContrast.Location = new System.Drawing.Point(128, 271);
             this.nContrast.Maximum = new decimal(new int[] {
             255,
             0,
@@ -426,7 +432,7 @@
             // 
             // nBright
             // 
-            this.nBright.Location = new System.Drawing.Point(128, 148);
+            this.nBright.Location = new System.Drawing.Point(128, 294);
             this.nBright.Maximum = new decimal(new int[] {
             50,
             0,
@@ -448,7 +454,7 @@
             this.groupBox3.Controls.Add(this.sharpKernel);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.bSharp);
-            this.groupBox3.Location = new System.Drawing.Point(15, 384);
+            this.groupBox3.Location = new System.Drawing.Point(15, 537);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(178, 91);
             this.groupBox3.TabIndex = 19;
@@ -508,7 +514,7 @@
             this.groupBox1.Controls.Add(this.noiseKernel);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cbNoiseActive);
-            this.groupBox1.Location = new System.Drawing.Point(15, 223);
+            this.groupBox1.Location = new System.Drawing.Point(15, 376);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 155);
             this.groupBox1.TabIndex = 11;
@@ -593,7 +599,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 150);
+            this.label6.Location = new System.Drawing.Point(15, 296);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 9;
@@ -602,7 +608,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 127);
+            this.label5.Location = new System.Drawing.Point(15, 273);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 13);
             this.label5.TabIndex = 8;
@@ -611,7 +617,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 104);
+            this.label4.Location = new System.Drawing.Point(15, 250);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(67, 13);
             this.label4.TabIndex = 7;
@@ -620,20 +626,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 81);
+            this.label3.Location = new System.Drawing.Point(15, 227);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(66, 13);
             this.label3.TabIndex = 6;
             this.label3.Text = "Black Level:";
             // 
-            // label2
+            // labelGain
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(32, 13);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Gain:";
+            this.labelGain.AutoSize = true;
+            this.labelGain.Location = new System.Drawing.Point(15, 58);
+            this.labelGain.Name = "labelGain";
+            this.labelGain.Size = new System.Drawing.Size(32, 13);
+            this.labelGain.TabIndex = 5;
+            this.labelGain.Text = "Gain:";
             // 
             // label1
             // 
@@ -656,6 +662,25 @@
             this.cbFrameFetcher.Text = "Preview";
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
+            // 
+            // toolStripProcessTime
+            // 
+            this.toolStripProcessTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripProcessTime.Name = "toolStripProcessTime";
+            this.toolStripProcessTime.Size = new System.Drawing.Size(78, 19);
+            this.toolStripProcessTime.Text = "Process time";
+            // 
+            // histogram
+            // 
+            this.histogram.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.histogram.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.histogram.Location = new System.Drawing.Point(15, 83);
+            this.histogram.Name = "histogram";
+            this.histogram.Size = new System.Drawing.Size(187, 114);
+            this.histogram.TabIndex = 30;
+            this.histogram.TabStop = false;
             // 
             // frmMain
             // 
@@ -696,6 +721,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.histogram)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -733,7 +759,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelGain;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown noisePower;
         private System.Windows.Forms.Label label10;
@@ -756,6 +782,8 @@
         private System.Windows.Forms.TrackBar trackGain;
         private System.Windows.Forms.NumericUpDown expTime;
         private System.Windows.Forms.Label lgain;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripProcessTime;
+        private System.Windows.Forms.PictureBox histogram;
     }
 }
 

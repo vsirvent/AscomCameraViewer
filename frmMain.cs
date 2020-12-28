@@ -138,7 +138,8 @@ namespace Client
 							: string.Empty);
                 trackGain.Minimum = videoObject.GainMin;
                 trackGain.Maximum = videoObject.GainMax;
-			}
+                labelGain.Text = "Gain [" + videoObject.GainMin + ", " + videoObject.GainMax + "]:";
+            }
 			else
 			{
 				Text = "ASCOM Video Client";
@@ -179,13 +180,19 @@ namespace Client
 		private bool previewOn = true;
 
 		private delegate void PaintVideoFrameDelegate(IVideoFrame frame, Bitmap bmp);
+        private delegate void PaintToolStripTextDelegate(ToolStripItem c, String text);
 
-		private int renderedFrameCounter = 0;
+        private int renderedFrameCounter = 0;
 		private long startTicks = 0;
 		private long endTicks = 0;
 
 		private double renderFps = double.NaN;
 		private long currentFrameNo = 0;
+
+        private void PaintToolStripText(ToolStripItem c, String t)
+        {
+            c.Text = t;
+        }
 
         private void PaintVideoFrame(object frame, Bitmap bmp)
         {
@@ -261,7 +268,8 @@ namespace Client
 			}
 
 			public ArrayList ImageMetadata
-			{
+
+            {
 				get { return new ArrayList(); }
 			}
 		}
@@ -271,6 +279,9 @@ namespace Client
 		{
 			while(running)
 			{
+                bool process = false;
+
+                Stopwatch sw = Stopwatch.StartNew();
 				if (videoObject != null &&
 					videoObject.IsConnected &&
 					previewOn)
@@ -279,116 +290,130 @@ namespace Client
 					{
 						IVideoFrame frame = videoObject.LastVideoFrame;
                         Bitmap bmp = null;
-
                         if (frame != null && frame.ImageArray != null)
 						{
 							lastDisplayedVideoFrameNumber = frame.FrameNumber;
-                           
-                            if (true)
+                            System.Int32[,] bayer = (System.Int32[,])frame.ImageArray;
+                            byte[] data = new byte[imageWidth * imageHeight * 3];
+
+                            float cfactor = (259.0f * ((float)nContrast.Value + 255.0f)) / (255.0f * (259.0f - (float)nContrast.Value));
+                            for (int y = 0; y < imageHeight - 1; y += 2)
                             {
-                                System.Object[,] bayer = (System.Object[,])frame.ImageArray;
-                                byte[] data = new byte[imageWidth * imageHeight * 3];
-
-                                float cfactor = (259.0f * ((float)nContrast.Value + 255.0f)) / (255.0f * (259.0f - (float)nContrast.Value));
-                                for (int y = 0; y < imageHeight - 1; y += 2)
+                                for (int x = 0; x < imageWidth - 1; x += 2)
                                 {
-                                    for (int x = 0; x < imageWidth - 1; x += 2)
+                                    float r, g0, g1, b;
+                                    float nblack = (float)nBlack.Value;
+                                    float nwhite = (float)nWhite.Value;
+                                    /*
+                                    int b00 = (((int)bayer[x, y]) & 0xff);
+                                    int b01 = (((int)bayer[x, y]) >> 8 & 0xff);
+                                    int b10 = (((int)bayer[x, y+1]) & 0xff);
+                                    int b11 = (((int)bayer[x, y+1]) >> 8 & 0xff);
+                                    */
+                                    int b00 = (((int)bayer[x, y]));
+                                    int b01 = (((int)bayer[x + 1, y]));
+                                    int b10 = (((int)bayer[x, y + 1]));
+                                    int b11 = (((int)bayer[x + 1, y + 1]));
+
+                                    r = b00;
+                                    g0 = b01;
+                                    g1 = b10;
+                                    b = b11;
+
+                                    if (nblack != 0 || nwhite != 0)
                                     {
-                                        float r, g0, g1, b;
-                                        float nblack = (float)nBlack.Value;
-                                        float nwhite = (float)nWhite.Value;
-                                        /*
-                                        int b00 = (((int)bayer[x, y]) & 0xff);
-                                        int b01 = (((int)bayer[x, y]) >> 8 & 0xff);
-                                        int b10 = (((int)bayer[x, y+1]) & 0xff);
-                                        int b11 = (((int)bayer[x, y+1]) >> 8 & 0xff);
-                                        */
-                                        int b00 = (((int)bayer[x, y]));
-                                        int b01 = (((int)bayer[x + 1, y]));
-                                        int b10 = (((int)bayer[x, y + 1]));
-                                        int b11 = (((int)bayer[x + 1, y + 1]));
-
-                                        r = b00;
-                                        g0 = b01;
-                                        g1 = b10;
-                                        b = b11;
-
                                         r = Math.Max(Math.Min((r - nblack) * 256.0f / nwhite, 255.0f), 0.0f);
                                         g0 = Math.Max(Math.Min((g0 - nblack) * 256.0f / nwhite, 255.0f), 0.0f);
                                         g1 = Math.Max(Math.Min((g1 - nblack) * 256.0f / nwhite, 255.0f), 0.0f);
                                         b = Math.Max(Math.Min((b - nblack) * 256.0f / nwhite, 255.0f), 0.0f);
+                                    }
+                                    
 
+                                    float gamma = ((float)nGamma.Value + 5.0f) / 5.0f;
+                                    if (gamma != 1.0)
+                                    {
                                         r /= 256.0f;
                                         g0 /= 256.0f;
                                         g1 /= 256.0f;
                                         b /= 256.0f;
 
-                                        float gamma = ((float)nGamma.Value + 5.0f) / 5.0f;
-                                        if (gamma != 1.0)
-                                        {
-                                            r = (float)Math.Pow(r, 1.0f / gamma);
-                                            g0 = (float)Math.Pow(g0, 1.0f / gamma);
-                                            g1 = (float)Math.Pow(g1, 1.0f / gamma);
-                                            b = (float)Math.Pow(b, 1.0f / gamma);
-                                        }
+                                        r = (float)Math.Pow(r, 1.0f / gamma);
+                                        g0 = (float)Math.Pow(g0, 1.0f / gamma);
+                                        g1 = (float)Math.Pow(g1, 1.0f / gamma);
+                                        b = (float)Math.Pow(b, 1.0f / gamma);
 
-                                        r = Math.Max(Math.Min((int)((cfactor * (r * 256.0f - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
-                                        b = Math.Max(Math.Min((int)((cfactor * (b * 256.0f - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
-                                        g0 = Math.Max(Math.Min((int)((cfactor * (g0 * 256.0f - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
-                                        g1 = Math.Max(Math.Min((int)((cfactor * (g1 * 256.0f - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
-
-                                        byte br = (byte)r;
-                                        byte bg0 = (byte)g0;
-                                        byte bg1 = (byte)g1;
-                                        byte bb = (byte)b;
-                                        data[(y * imageWidth * 3) + x * 3 + 0] = (bb);
-                                        data[(y * imageWidth * 3) + x * 3 + 1] = (bg0);
-                                        data[(y * imageWidth * 3) + x * 3 + 2] = (br);
-                                        data[(y * imageWidth * 3) + x * 3 + 3] = (bb);
-                                        data[(y * imageWidth * 3) + x * 3 + 4] = (bg0);
-                                        data[(y * imageWidth * 3) + x * 3 + 5] = (br);
-
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 0] = (bb);
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 1] = (bg1);
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 2] = (br);
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 3] = (bb);
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 4] = (bg1);
-                                        data[(y + 1) * imageWidth * 3 + x * 3 + 5] = (br);
+                                        r *= 256.0f;
+                                        g0 *= 256.0f;
+                                        g1 *= 256.0f;
+                                        b *= 256.0f;
                                     }
-                                }
 
-                                unsafe
+                                    r = Math.Max(Math.Min((int)((cfactor * (r - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
+                                    b = Math.Max(Math.Min((int)((cfactor * (b - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
+                                    g0 = Math.Max(Math.Min((int)((cfactor * (g0 - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
+                                    g1 = Math.Max(Math.Min((int)((cfactor * (g1 - 128.0f) + 128.0f) * (float)nBright.Value) / 10, 255), 0);
+
+                                    byte br = (byte)r;
+                                    byte bg0 = (byte)g0;
+                                    byte bg1 = (byte)g1;
+                                    byte bb = (byte)b;
+                                    data[(y * imageWidth * 3) + x * 3 + 0] = (bb);
+                                    data[(y * imageWidth * 3) + x * 3 + 1] = (bg0);
+                                    data[(y * imageWidth * 3) + x * 3 + 2] = (br);
+                                    data[(y * imageWidth * 3) + x * 3 + 3] = (bb);
+                                    data[(y * imageWidth * 3) + x * 3 + 4] = (bg0);
+                                    data[(y * imageWidth * 3) + x * 3 + 5] = (br);
+
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 0] = (bb);
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 1] = (bg1);
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 2] = (br);
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 3] = (bb);
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 4] = (bg1);
+                                    data[(y + 1) * imageWidth * 3 + x * 3 + 5] = (br);
+                                }
+                            }
+
+                            unsafe
+                            {
+                                fixed (byte* pdata = data)
                                 {
-                                    fixed (byte* pdata = data)
+                                    IntPtr p = new IntPtr((void*)pdata);
+                                    bmp = new Bitmap(imageWidth, imageHeight, imageWidth * 3, PixelFormat.Format24bppRgb, p);
+                                    if (cbHistoEq.Checked)
                                     {
-                                        IntPtr p = new IntPtr((void*)pdata);
-                                        bmp = new Bitmap(imageWidth, imageHeight, imageWidth * 3, PixelFormat.Format24bppRgb, p);
-                                        if (cbHistoEq.Checked)
-                                        {
-                                            // create filter
-                                            ContrastStretch hfilter = new ContrastStretch();
-                                            // process image
-                                            hfilter.ApplyInPlace(bmp);
-                                        }
-                                        if (cbNoiseActive.Checked)
-                                        {
-                                            BilateralSmoothing nfilter = new BilateralSmoothing();
-                                            nfilter.KernelSize = (int)noiseKernel.Value;
-                                            nfilter.SpatialFactor = (double)noiseSpatial.Value;
-                                            nfilter.ColorFactor = (double)noiseColor.Value;
-                                            nfilter.ColorPower = (double)noisePower.Value;
-                                            nfilter.ApplyInPlace(bmp);
-                                        }
-                                        if (bSharp.Checked)
-                                        {
-                                            GaussianSharpen sfilter = new GaussianSharpen((int)sharpKernel.Value, (int)sharpSigma.Value);
-                                            sfilter.ApplyInPlace(bmp);
-                                        }
+                                        // create filter
+                                        ContrastStretch hfilter = new ContrastStretch();
+                                        // process image
+                                        hfilter.ApplyInPlace(bmp);
+                                    }
+                                    if (cbNoiseActive.Checked)
+                                    {
+                                        BilateralSmoothing nfilter = new BilateralSmoothing();
+                                        nfilter.KernelSize = (int)noiseKernel.Value;
+                                        nfilter.SpatialFactor = (double)noiseSpatial.Value;
+                                        nfilter.ColorFactor = (double)noiseColor.Value;
+                                        nfilter.ColorPower = (double)noisePower.Value;
+                                        nfilter.ApplyInPlace(bmp);
+                                    }
+                                    if (bSharp.Checked)
+                                    {
+                                        GaussianSharpen sfilter = new GaussianSharpen((int)sharpKernel.Value, (int)sharpSigma.Value);
+                                        sfilter.ApplyInPlace(bmp);
                                     }
                                 }
                             }
-                            PaintVideoFrame(frame, bmp);
-         				}
+                            
+                            if (pictureBox.InvokeRequired)
+                            {
+                                Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { frame, bmp });
+                            }
+                            else
+                            {
+                                PaintVideoFrame(frame, bmp);
+                            }
+                            process = true;
+
+                         }
 					}
 					catch(ObjectDisposedException){ }
 					catch(Exception ex)
@@ -404,16 +429,38 @@ namespace Client
 						}
 						try
 						{
-                            PaintVideoFrame(null, errorBmp);
+                            if (pictureBox.InvokeRequired)
+                            {
+                                Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { null, errorBmp });
+                            }
+                            else
+                            {
+                                PaintVideoFrame(null, errorBmp);
+                            }
                         }
                         catch (InvalidOperationException)
 						{
 							// InvalidOperationException could be thrown when closing down the app i.e. when the form has been already disposed
 						}
 					}
-				}
-				Thread.Sleep(10);
-				Application.DoEvents();
+                }
+                sw.Stop();
+                long sleep_time = 100;
+                if (videoObject != null)
+                {
+                    sleep_time = (long)(videoObject.ExposureTime * 1000.0) - sw.ElapsedMilliseconds;
+                    System.Console.Out.WriteLine("Loop time " + sw.ElapsedMilliseconds + " msec");
+                    if (process)
+                    {
+                        Invoke(new PaintToolStripTextDelegate(PaintToolStripText), new object[] { toolStripProcessTime, "Process time: " + sw.ElapsedMilliseconds + " msec." });
+                    }
+                }
+                if (sleep_time > 0)
+                {
+                    System.Console.Out.WriteLine("Sleep => " + sleep_time);
+                    Thread.Sleep((int)sleep_time);
+                }
+                Application.DoEvents();
 			}
 		}
 
@@ -432,7 +479,9 @@ namespace Client
 				tssFrameNo.Visible = false;
 				tssDisplayRate.Visible = false;
                 toolStripSizeLabel.Visible = false;
-
+                toolStripProcessTime.Visible = false;
+                histogram.Image = null;
+                histogram.BackColor = SystemColors.ControlDark;
             }
 			else
 			{
@@ -447,7 +496,7 @@ namespace Client
 
 				tssFrameNo.Text = currentFrameNo.ToString("Current Frame: 0", CultureInfo.InvariantCulture);
                 if (!tssDisplayRate.Visible) tssDisplayRate.Visible = true;
-
+                if (!toolStripProcessTime.Visible) toolStripProcessTime.Visible = true;
                 if (!double.IsNaN(renderFps))
                 {
                     tssDisplayRate.Text = renderFps.ToString("Display Rate: 0.00 fps");
@@ -456,8 +505,10 @@ namespace Client
                 {
                     tssDisplayRate.Text = "Display Rate: N/A";
                 }
-			}
-		}
+                histogram.Image = null;
+                histogram.BackColor = Color.Black;
+            }
+        }
 
         private void miDriverInfo_Click(object sender, EventArgs e)
 		{
@@ -507,7 +558,12 @@ namespace Client
         {
             if (videoObject != null)
             {
-                videoObject.ExposureTime = (double)expTime.Value;
+                double time = (double)expTime.Value;
+                if (time > 0.0 && time != videoObject.ExposureTime)
+                {
+                    videoObject.ExposureTime = time;
+                    expTime.Value = (decimal)time;
+                }            
             }
         }
 
