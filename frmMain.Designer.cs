@@ -19,8 +19,8 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.tssCameraState = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssFrameNo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tssDisplayRate = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tssDisplayRate = new System.Windows.Forms.ToolStripStatusLabel();
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,6 +36,9 @@
             this.pnlVideoFrames = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.pnlVideoControls = new System.Windows.Forms.Panel();
+            this.lgain = new System.Windows.Forms.Label();
+            this.trackGain = new System.Windows.Forms.TrackBar();
+            this.expTime = new System.Windows.Forms.NumericUpDown();
             this.cbHistoEq = new System.Windows.Forms.CheckBox();
             this.nWhite = new System.Windows.Forms.NumericUpDown();
             this.nBlack = new System.Windows.Forms.NumericUpDown();
@@ -66,15 +69,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
-            this.expTime = new System.Windows.Forms.NumericUpDown();
-            this.trackGain = new System.Windows.Forms.TrackBar();
-            this.lgain = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
             this.pnlVideoFrames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.pnlVideoControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expTime)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nWhite)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBlack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nGamma)).BeginInit();
@@ -88,8 +90,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.expTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -124,16 +124,6 @@
             this.tssFrameNo.Text = "Frame No";
             this.tssFrameNo.Visible = false;
             // 
-            // tssDisplayRate
-            // 
-            this.tssDisplayRate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.tssDisplayRate.Name = "tssDisplayRate";
-            this.tssDisplayRate.Size = new System.Drawing.Size(75, 19);
-            this.tssDisplayRate.Text = "Display Rate";
-            this.tssDisplayRate.Visible = false;
-            // 
             // toolStripSizeLabel
             // 
             this.toolStripSizeLabel.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
@@ -143,6 +133,16 @@
             this.toolStripSizeLabel.Size = new System.Drawing.Size(31, 19);
             this.toolStripSizeLabel.Text = "Size";
             this.toolStripSizeLabel.Visible = false;
+            // 
+            // tssDisplayRate
+            // 
+            this.tssDisplayRate.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.tssDisplayRate.Name = "tssDisplayRate";
+            this.tssDisplayRate.Size = new System.Drawing.Size(75, 19);
+            this.tssDisplayRate.Text = "Display Rate";
+            this.tssDisplayRate.Visible = false;
             // 
             // msMain
             // 
@@ -231,6 +231,7 @@
             this.miSettings.Name = "miSettings";
             this.miSettings.Size = new System.Drawing.Size(61, 20);
             this.miSettings.Text = "&Settings";
+            this.miSettings.Visible = false;
             this.miSettings.Click += new System.EventHandler(this.miConfigure_Click);
             // 
             // pnlClient
@@ -297,6 +298,49 @@
             this.pnlVideoControls.Name = "pnlVideoControls";
             this.pnlVideoControls.Size = new System.Drawing.Size(226, 482);
             this.pnlVideoControls.TabIndex = 1;
+            // 
+            // lgain
+            // 
+            this.lgain.AutoSize = true;
+            this.lgain.Location = new System.Drawing.Point(192, 58);
+            this.lgain.Name = "lgain";
+            this.lgain.Size = new System.Drawing.Size(13, 13);
+            this.lgain.TabIndex = 29;
+            this.lgain.Text = "0";
+            // 
+            // trackGain
+            // 
+            this.trackGain.AutoSize = false;
+            this.trackGain.Location = new System.Drawing.Point(53, 55);
+            this.trackGain.Maximum = 100;
+            this.trackGain.Name = "trackGain";
+            this.trackGain.Size = new System.Drawing.Size(133, 22);
+            this.trackGain.TabIndex = 28;
+            this.trackGain.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackGain.Scroll += new System.EventHandler(this.trackGain_Scroll);
+            // 
+            // expTime
+            // 
+            this.expTime.Location = new System.Drawing.Point(128, 33);
+            this.expTime.Maximum = new decimal(new int[] {
+            300,
+            0,
+            0,
+            0});
+            this.expTime.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.expTime.Name = "expTime";
+            this.expTime.Size = new System.Drawing.Size(58, 20);
+            this.expTime.TabIndex = 27;
+            this.expTime.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.expTime.ValueChanged += new System.EventHandler(this.OnExposureTimeChanged);
             // 
             // cbHistoEq
             // 
@@ -613,49 +657,6 @@
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
             // 
-            // expTime
-            // 
-            this.expTime.Location = new System.Drawing.Point(128, 33);
-            this.expTime.Maximum = new decimal(new int[] {
-            300,
-            0,
-            0,
-            0});
-            this.expTime.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.expTime.Name = "expTime";
-            this.expTime.Size = new System.Drawing.Size(58, 20);
-            this.expTime.TabIndex = 27;
-            this.expTime.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.expTime.ValueChanged += new System.EventHandler(this.OnExposureTimeChanged);
-            // 
-            // trackGain
-            // 
-            this.trackGain.AutoSize = false;
-            this.trackGain.Location = new System.Drawing.Point(53, 55);
-            this.trackGain.Maximum = 100;
-            this.trackGain.Name = "trackGain";
-            this.trackGain.Size = new System.Drawing.Size(133, 22);
-            this.trackGain.TabIndex = 28;
-            this.trackGain.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackGain.Scroll += new System.EventHandler(this.trackGain_Scroll);
-            // 
-            // lgain
-            // 
-            this.lgain.AutoSize = true;
-            this.lgain.Location = new System.Drawing.Point(192, 58);
-            this.lgain.Name = "lgain";
-            this.lgain.Size = new System.Drawing.Size(13, 13);
-            this.lgain.TabIndex = 29;
-            this.lgain.Text = "0";
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -678,6 +679,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.pnlVideoControls.ResumeLayout(false);
             this.pnlVideoControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.expTime)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nWhite)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBlack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nGamma)).EndInit();
@@ -693,8 +696,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.expTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackGain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

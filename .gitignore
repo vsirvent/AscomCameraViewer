@@ -172,3 +172,11 @@ obj/x86/Debug/Client.frmUnexpectedError.resources
 obj/x86/Debug/Client.Properties.Resources.resources
 obj/x86/Debug/VideoClient.exe
 obj/x86/Debug/VideoClient.pdb
+.vs/ASCOM.CameraViewer/v15/.suo
+.vs/ASCOM.CameraViewer/v15/Server/sqlite3/db.lock
+.vs/ASCOM.CameraViewer/v15/Server/sqlite3/storage.ide
+obj/Debug/ASCOM.CameraViewer.csproj.CopyComplete
+obj/Debug/ASCOM.CameraViewer.csproj.CoreCompileInputs.cache
+obj/Debug/ASCOM.CameraViewer.csproj.FileListAbsolute.txt
+obj/Debug/ASCOM.CameraViewer.csproj.GenerateResource.cache
+obj/Debug/ASCOM.CameraViewer.csprojResolveAssemblyReference.cache

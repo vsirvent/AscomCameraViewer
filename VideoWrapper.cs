@@ -242,7 +242,7 @@ namespace Client
                 {
                     return video.Gain;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     return 0;
                 }
@@ -252,7 +252,7 @@ namespace Client
                 try
                 {
                     video.Gain = (short)value;
-                }catch(Exception e) {
+                }catch(Exception) {
 
                 }
             }
