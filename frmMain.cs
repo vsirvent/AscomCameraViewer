@@ -369,10 +369,10 @@ namespace Client
                                     int b10 = (((int)bayer[x, y+1]) & 0xff);
                                     int b11 = (((int)bayer[x, y+1]) >> 8 & 0xff);
                                     */
-                                    int b00 = (((int)bayer[x, y]));
-                                    int b01 = (((int)bayer[x + 1, y]));
-                                    int b10 = (((int)bayer[x, y + 1]));
-                                    int b11 = (((int)bayer[x + 1, y + 1]));
+                                    int b01 = (((int)bayer[x, y]));
+                                    int b00 = (((int)bayer[x + 1, y]));
+                                    int b11 = (((int)bayer[x, y + 1]));
+                                    int b10 = (((int)bayer[x + 1, y + 1]));
                                     int lum = (b00 + b01 + b10 + b11)*histogram.Width/(4*256);
                                     var curr_val = 0;
                                     if (histogramVals.TryGetValue(lum, out curr_val))
