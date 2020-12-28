@@ -192,3 +192,7 @@ obj/x86/Debug/TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs
 obj/x86/Debug/TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs
 obj/x86/Debug/ASCOM.CameraViewer.csprojResolveAssemblyReference.cache
 obj/x86/Debug/ASCOM.CameraViewer.csproj.GenerateResource.cache
+obj/x86/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+obj/x86/Debug/DesignTimeResolveAssemblyReferences.cache
+.vs/ASCOM.CameraViewer/v15/Server/sqlite3/storage.ide-wal
+.vs/ASCOM.CameraViewer/v15/Server/sqlite3/storage.ide-shm

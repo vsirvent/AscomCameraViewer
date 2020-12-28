@@ -42,6 +42,8 @@ namespace Client
 
 		private int imageWidth;
 		private int imageHeight;
+        private float nwhite = 255.0f;
+        private float nblack = 0.0f;
 	 
 		public frmMain()
 		{
@@ -138,6 +140,7 @@ namespace Client
 							: string.Empty);
                 trackGain.Minimum = videoObject.GainMin;
                 trackGain.Maximum = videoObject.GainMax;
+                trackGain.Enabled = (trackGain.Maximum != 0);
                 labelGain.Text = "Gain [" + videoObject.GainMin + ", " + videoObject.GainMax + "]:";
             }
 			else
@@ -181,6 +184,7 @@ namespace Client
 
 		private delegate void PaintVideoFrameDelegate(IVideoFrame frame, Bitmap bmp);
         private delegate void PaintToolStripTextDelegate(ToolStripItem c, String text);
+        private delegate void PaintHistogramDelegate(PictureBox p, SortedDictionary<int, int> values);
 
         private int renderedFrameCounter = 0;
 		private long startTicks = 0;
@@ -188,6 +192,36 @@ namespace Client
 
 		private double renderFps = double.NaN;
 		private long currentFrameNo = 0;
+
+        private void PaintHistogram(PictureBox p, SortedDictionary<int, int> values)
+        {
+            //Normalize
+            int max = 0;
+            foreach (var v in values) {
+                if (v.Value > max)
+                {
+                    max = v.Value;
+                }
+            }
+
+            Bitmap b = new Bitmap(p.Width, p.Height, PixelFormat.Format24bppRgb);
+            using (Graphics g = Graphics.FromImage(b))
+            {
+                Pen pen = new Pen(Color.White);
+                foreach (var v in values)
+                {
+                    g.DrawLine(pen, v.Key, p.Height - 1, v.Key, p.Height - 1 - (v.Value * p.Height) / max);
+                }
+                Pen pen2 = new Pen(Color.Yellow);
+                int nblack_pos = (int)nblack * p.Width / 256;
+                int nwhite_pos = (int)nwhite * p.Width / 256;
+
+                g.DrawLine(pen2, nblack_pos, p.Height - 1, nblack_pos, 0);
+                g.DrawLine(pen2, nwhite_pos, p.Height - 1, nwhite_pos, 0);
+
+            }
+            p.Image = b;
+        }
 
         private void PaintToolStripText(ToolStripItem c, String t)
         {
@@ -274,13 +308,14 @@ namespace Client
 			}
 		}
 
-
-		private void DisplayVideoFrames(object state)
+        private SortedDictionary<int, int> histogramVals = new SortedDictionary<int, int>();
+        private System.Int32[,] meanbayer = null;
+        private void DisplayVideoFrames(object state)
 		{
 			while(running)
 			{
                 bool process = false;
-
+                
                 Stopwatch sw = Stopwatch.StartNew();
 				if (videoObject != null &&
 					videoObject.IsConnected &&
@@ -292,8 +327,31 @@ namespace Client
                         Bitmap bmp = null;
                         if (frame != null && frame.ImageArray != null)
 						{
+                            histogramVals.Clear();
 							lastDisplayedVideoFrameNumber = frame.FrameNumber;
+                           
                             System.Int32[,] bayer = (System.Int32[,])frame.ImageArray;
+
+                            if (meanAmount.Value > 1)
+                            {
+                                float alpha = 1.0f/(float)meanAmount.Value;
+                                if (meanbayer == null || meanbayer.Length != bayer.Length)
+                                {
+                                    meanbayer = new System.Int32[imageWidth, imageHeight];
+                                    alpha = 1.0f;
+                                }
+
+                                float beta = 1.0f - alpha;
+                                for (int y = 0; y < imageHeight; y++)
+                                {
+                                    for (int x = 0; x < imageWidth; x++)
+                                    {
+                                        meanbayer[x, y] = (int)((float)meanbayer[x, y] * beta + (float)bayer[x, y] * alpha);
+                                    }
+                                }
+                                bayer = meanbayer;
+                            }
+
                             byte[] data = new byte[imageWidth * imageHeight * 3];
 
                             float cfactor = (259.0f * ((float)nContrast.Value + 255.0f)) / (255.0f * (259.0f - (float)nContrast.Value));
@@ -302,8 +360,7 @@ namespace Client
                                 for (int x = 0; x < imageWidth - 1; x += 2)
                                 {
                                     float r, g0, g1, b;
-                                    float nblack = (float)nBlack.Value;
-                                    float nwhite = (float)nWhite.Value;
+                                   
                                     /*
                                     int b00 = (((int)bayer[x, y]) & 0xff);
                                     int b01 = (((int)bayer[x, y]) >> 8 & 0xff);
@@ -314,6 +371,13 @@ namespace Client
                                     int b01 = (((int)bayer[x + 1, y]));
                                     int b10 = (((int)bayer[x, y + 1]));
                                     int b11 = (((int)bayer[x + 1, y + 1]));
+                                    int lum = (b00 + b01 + b10 + b11)*histogram.Width/(4*256);
+                                    var curr_val = 0;
+                                    if (histogramVals.TryGetValue(lum, out curr_val))
+                                    {
+                                        histogramVals.Remove(lum);
+                                    }
+                                    histogramVals.Add(lum, curr_val + 1);
 
                                     r = b00;
                                     g0 = b01;
@@ -403,14 +467,8 @@ namespace Client
                                 }
                             }
                             
-                            if (pictureBox.InvokeRequired)
-                            {
-                                Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { frame, bmp });
-                            }
-                            else
-                            {
-                                PaintVideoFrame(frame, bmp);
-                            }
+                            Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { frame, bmp });
+                            Invoke(new PaintHistogramDelegate(PaintHistogram), new object[] { histogram, histogramVals });
                             process = true;
 
                          }
@@ -429,14 +487,7 @@ namespace Client
 						}
 						try
 						{
-                            if (pictureBox.InvokeRequired)
-                            {
-                                Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { null, errorBmp });
-                            }
-                            else
-                            {
-                                PaintVideoFrame(null, errorBmp);
-                            }
+                            Invoke(new PaintVideoFrameDelegate(PaintVideoFrame), new object[] { null, errorBmp });                            
                         }
                         catch (InvalidOperationException)
 						{
@@ -578,6 +629,18 @@ namespace Client
                     trackGain.Value = videoObject.Gain;
                 }
             }
+        }
+
+        private void trackBL_Scroll(object sender, EventArgs e)
+        {
+            lBL.Text = "BL: " + trackBL.Value;
+            nblack = trackBL.Value;
+        }
+
+        private void trackWL_Scroll(object sender, EventArgs e)
+        {
+            lWL.Text = "WL: " + trackWL.Value;
+            nwhite = trackWL.Value;
         }
     }
 }

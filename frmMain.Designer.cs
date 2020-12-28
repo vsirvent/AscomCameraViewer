@@ -21,6 +21,7 @@
             this.tssFrameNo = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripSizeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.tssDisplayRate = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripProcessTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.msMain = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -36,12 +37,11 @@
             this.pnlVideoFrames = new System.Windows.Forms.Panel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.pnlVideoControls = new System.Windows.Forms.Panel();
+            this.histogram = new System.Windows.Forms.PictureBox();
             this.lgain = new System.Windows.Forms.Label();
             this.trackGain = new System.Windows.Forms.TrackBar();
             this.expTime = new System.Windows.Forms.NumericUpDown();
             this.cbHistoEq = new System.Windows.Forms.CheckBox();
-            this.nWhite = new System.Windows.Forms.NumericUpDown();
-            this.nBlack = new System.Windows.Forms.NumericUpDown();
             this.nGamma = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.nContrast = new System.Windows.Forms.NumericUpDown();
@@ -64,23 +64,24 @@
             this.cbNoiseActive = new System.Windows.Forms.CheckBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lWL = new System.Windows.Forms.Label();
+            this.lBL = new System.Windows.Forms.Label();
             this.labelGain = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.cbFrameFetcher = new System.Windows.Forms.CheckBox();
-            this.toolStripProcessTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.histogram = new System.Windows.Forms.PictureBox();
+            this.trackBL = new System.Windows.Forms.TrackBar();
+            this.trackWL = new System.Windows.Forms.TrackBar();
+            this.meanAmount = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.statusStrip.SuspendLayout();
             this.msMain.SuspendLayout();
             this.pnlClient.SuspendLayout();
             this.pnlVideoFrames.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.pnlVideoControls.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.histogram)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackGain)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.expTime)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nGamma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nContrast)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBright)).BeginInit();
@@ -92,7 +93,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.histogram)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -147,6 +150,15 @@
             this.tssDisplayRate.Size = new System.Drawing.Size(75, 19);
             this.tssDisplayRate.Text = "Display Rate";
             this.tssDisplayRate.Visible = false;
+            // 
+            // toolStripProcessTime
+            // 
+            this.toolStripProcessTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.toolStripProcessTime.Name = "toolStripProcessTime";
+            this.toolStripProcessTime.Size = new System.Drawing.Size(78, 19);
+            this.toolStripProcessTime.Text = "Process time";
             // 
             // msMain
             // 
@@ -277,13 +289,15 @@
             this.pnlVideoControls.AutoScroll = true;
             this.pnlVideoControls.BackColor = System.Drawing.SystemColors.Control;
             this.pnlVideoControls.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlVideoControls.Controls.Add(this.meanAmount);
+            this.pnlVideoControls.Controls.Add(this.label2);
+            this.pnlVideoControls.Controls.Add(this.trackWL);
+            this.pnlVideoControls.Controls.Add(this.trackBL);
             this.pnlVideoControls.Controls.Add(this.histogram);
             this.pnlVideoControls.Controls.Add(this.lgain);
             this.pnlVideoControls.Controls.Add(this.trackGain);
             this.pnlVideoControls.Controls.Add(this.expTime);
             this.pnlVideoControls.Controls.Add(this.cbHistoEq);
-            this.pnlVideoControls.Controls.Add(this.nWhite);
-            this.pnlVideoControls.Controls.Add(this.nBlack);
             this.pnlVideoControls.Controls.Add(this.nGamma);
             this.pnlVideoControls.Controls.Add(this.label11);
             this.pnlVideoControls.Controls.Add(this.nContrast);
@@ -292,8 +306,8 @@
             this.pnlVideoControls.Controls.Add(this.groupBox1);
             this.pnlVideoControls.Controls.Add(this.label6);
             this.pnlVideoControls.Controls.Add(this.label5);
-            this.pnlVideoControls.Controls.Add(this.label4);
-            this.pnlVideoControls.Controls.Add(this.label3);
+            this.pnlVideoControls.Controls.Add(this.lWL);
+            this.pnlVideoControls.Controls.Add(this.lBL);
             this.pnlVideoControls.Controls.Add(this.labelGain);
             this.pnlVideoControls.Controls.Add(this.label1);
             this.pnlVideoControls.Controls.Add(this.cbFrameFetcher);
@@ -303,6 +317,16 @@
             this.pnlVideoControls.Name = "pnlVideoControls";
             this.pnlVideoControls.Size = new System.Drawing.Size(226, 482);
             this.pnlVideoControls.TabIndex = 1;
+            // 
+            // histogram
+            // 
+            this.histogram.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.histogram.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.histogram.Location = new System.Drawing.Point(15, 106);
+            this.histogram.Name = "histogram";
+            this.histogram.Size = new System.Drawing.Size(187, 114);
+            this.histogram.TabIndex = 30;
+            this.histogram.TabStop = false;
             // 
             // lgain
             // 
@@ -351,45 +375,16 @@
             // cbHistoEq
             // 
             this.cbHistoEq.AutoSize = true;
-            this.cbHistoEq.Location = new System.Drawing.Point(22, 350);
+            this.cbHistoEq.Location = new System.Drawing.Point(22, 402);
             this.cbHistoEq.Name = "cbHistoEq";
             this.cbHistoEq.Size = new System.Drawing.Size(92, 17);
             this.cbHistoEq.TabIndex = 26;
             this.cbHistoEq.Text = "Histogram Eq.";
             this.cbHistoEq.UseVisualStyleBackColor = true;
             // 
-            // nWhite
-            // 
-            this.nWhite.Location = new System.Drawing.Point(128, 248);
-            this.nWhite.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nWhite.Name = "nWhite";
-            this.nWhite.Size = new System.Drawing.Size(58, 20);
-            this.nWhite.TabIndex = 25;
-            this.nWhite.Value = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            // 
-            // nBlack
-            // 
-            this.nBlack.Location = new System.Drawing.Point(128, 225);
-            this.nBlack.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nBlack.Name = "nBlack";
-            this.nBlack.Size = new System.Drawing.Size(58, 20);
-            this.nBlack.TabIndex = 24;
-            // 
             // nGamma
             // 
-            this.nGamma.Location = new System.Drawing.Point(128, 317);
+            this.nGamma.Location = new System.Drawing.Point(128, 369);
             this.nGamma.Maximum = new decimal(new int[] {
             5,
             0,
@@ -407,7 +402,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(15, 319);
+            this.label11.Location = new System.Drawing.Point(15, 371);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(73, 13);
             this.label11.TabIndex = 22;
@@ -415,7 +410,7 @@
             // 
             // nContrast
             // 
-            this.nContrast.Location = new System.Drawing.Point(128, 271);
+            this.nContrast.Location = new System.Drawing.Point(128, 323);
             this.nContrast.Maximum = new decimal(new int[] {
             255,
             0,
@@ -432,7 +427,7 @@
             // 
             // nBright
             // 
-            this.nBright.Location = new System.Drawing.Point(128, 294);
+            this.nBright.Location = new System.Drawing.Point(128, 346);
             this.nBright.Maximum = new decimal(new int[] {
             50,
             0,
@@ -454,7 +449,7 @@
             this.groupBox3.Controls.Add(this.sharpKernel);
             this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.bSharp);
-            this.groupBox3.Location = new System.Drawing.Point(15, 537);
+            this.groupBox3.Location = new System.Drawing.Point(15, 589);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(178, 91);
             this.groupBox3.TabIndex = 19;
@@ -514,7 +509,7 @@
             this.groupBox1.Controls.Add(this.noiseKernel);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cbNoiseActive);
-            this.groupBox1.Location = new System.Drawing.Point(15, 376);
+            this.groupBox1.Location = new System.Drawing.Point(15, 428);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(178, 155);
             this.groupBox1.TabIndex = 11;
@@ -599,7 +594,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(15, 296);
+            this.label6.Location = new System.Drawing.Point(15, 348);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(89, 13);
             this.label6.TabIndex = 9;
@@ -608,29 +603,29 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(15, 273);
+            this.label5.Location = new System.Drawing.Point(15, 325);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(100, 13);
             this.label5.TabIndex = 8;
             this.label5.Text = "Contrast [-255,255]:";
             // 
-            // label4
+            // lWL
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(15, 250);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "White Level:";
+            this.lWL.AutoSize = true;
+            this.lWL.Location = new System.Drawing.Point(15, 281);
+            this.lWL.Name = "lWL";
+            this.lWL.Size = new System.Drawing.Size(48, 13);
+            this.lWL.TabIndex = 7;
+            this.lWL.Text = "WL: 255";
             // 
-            // label3
+            // lBL
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 227);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(66, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Black Level:";
+            this.lBL.AutoSize = true;
+            this.lBL.Location = new System.Drawing.Point(15, 231);
+            this.lBL.Name = "lBL";
+            this.lBL.Size = new System.Drawing.Size(32, 13);
+            this.lBL.TabIndex = 6;
+            this.lBL.Text = "BL: 0";
             // 
             // labelGain
             // 
@@ -663,24 +658,59 @@
             this.cbFrameFetcher.UseVisualStyleBackColor = true;
             this.cbFrameFetcher.CheckedChanged += new System.EventHandler(this.cbFrameFetcher_CheckedChanged);
             // 
-            // toolStripProcessTime
+            // trackBL
             // 
-            this.toolStripProcessTime.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.toolStripProcessTime.Name = "toolStripProcessTime";
-            this.toolStripProcessTime.Size = new System.Drawing.Size(78, 19);
-            this.toolStripProcessTime.Text = "Process time";
+            this.trackBL.AutoSize = false;
+            this.trackBL.Location = new System.Drawing.Point(15, 247);
+            this.trackBL.Maximum = 255;
+            this.trackBL.Name = "trackBL";
+            this.trackBL.Size = new System.Drawing.Size(190, 22);
+            this.trackBL.TabIndex = 31;
+            this.trackBL.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBL.Scroll += new System.EventHandler(this.trackBL_Scroll);
             // 
-            // histogram
+            // trackWL
             // 
-            this.histogram.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.histogram.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.histogram.Location = new System.Drawing.Point(15, 83);
-            this.histogram.Name = "histogram";
-            this.histogram.Size = new System.Drawing.Size(187, 114);
-            this.histogram.TabIndex = 30;
-            this.histogram.TabStop = false;
+            this.trackWL.AutoSize = false;
+            this.trackWL.Location = new System.Drawing.Point(15, 297);
+            this.trackWL.Maximum = 255;
+            this.trackWL.Name = "trackWL";
+            this.trackWL.Size = new System.Drawing.Size(190, 22);
+            this.trackWL.TabIndex = 32;
+            this.trackWL.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackWL.Value = 255;
+            this.trackWL.Scroll += new System.EventHandler(this.trackWL_Scroll);
+            // 
+            // meanAmount
+            // 
+            this.meanAmount.Location = new System.Drawing.Point(128, 81);
+            this.meanAmount.Maximum = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.meanAmount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.meanAmount.Name = "meanAmount";
+            this.meanAmount.Size = new System.Drawing.Size(58, 20);
+            this.meanAmount.TabIndex = 34;
+            this.meanAmount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(15, 83);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(88, 13);
+            this.label2.TabIndex = 33;
+            this.label2.Text = "Mean exposures:";
             // 
             // frmMain
             // 
@@ -704,10 +734,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.pnlVideoControls.ResumeLayout(false);
             this.pnlVideoControls.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.histogram)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackGain)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.expTime)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nWhite)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nBlack)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nGamma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nContrast)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nBright)).EndInit();
@@ -721,7 +750,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.noiseColor)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseSpatial)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.noiseKernel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.histogram)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBL)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackWL)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.meanAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -757,8 +788,8 @@
         private System.Windows.Forms.CheckBox cbNoiseActive;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lWL;
+        private System.Windows.Forms.Label lBL;
         private System.Windows.Forms.Label labelGain;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown noisePower;
@@ -775,8 +806,6 @@
         private System.Windows.Forms.NumericUpDown nContrast;
         private System.Windows.Forms.NumericUpDown nGamma;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.NumericUpDown nWhite;
-        private System.Windows.Forms.NumericUpDown nBlack;
         private System.Windows.Forms.CheckBox cbHistoEq;
         private System.Windows.Forms.ToolStripStatusLabel toolStripSizeLabel;
         private System.Windows.Forms.TrackBar trackGain;
@@ -784,6 +813,10 @@
         private System.Windows.Forms.Label lgain;
         private System.Windows.Forms.ToolStripStatusLabel toolStripProcessTime;
         private System.Windows.Forms.PictureBox histogram;
+        private System.Windows.Forms.TrackBar trackWL;
+        private System.Windows.Forms.TrackBar trackBL;
+        private System.Windows.Forms.NumericUpDown meanAmount;
+        private System.Windows.Forms.Label label2;
     }
 }
 
